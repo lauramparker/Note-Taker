@@ -3,7 +3,7 @@ var express = require("express");
 var path = require("path");
 var fs = require("fs");
 
-//Set up Express
+//Set up Express; exported from the routes.js files
 var app = express();
 
 //Set Up PORT
@@ -15,7 +15,7 @@ app.use(express.json());
 
 
 //Routes
-require(".routes/routes");
+require(".routes/routes")(app);
 
 
 //Starts server Listening
