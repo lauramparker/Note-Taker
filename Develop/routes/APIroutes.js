@@ -8,8 +8,12 @@ var notesData =  require("../data/notesData");
 module.exports = function(app) {
     
     //API GET
-    app.get("/api/notes", fucntion (req, res) {
+    app.get("/api/notes", function (req, res) {
         res.json(notesData);
+    });
+
+    app.get("*", function (req, res) {
+        res.json( // );
     });
 
 
@@ -18,7 +22,6 @@ module.exports = function(app) {
     app.post("/api/notes", function(req, res) {
 
         //need conditional code 
-
 
     });
 

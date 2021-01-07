@@ -15,7 +15,8 @@ app.use(express.json());
 
 
 //Routes
-require(".routes/routes")(app);
+require(".routes/HTMLroutes")(app);
+require(".routes/APIroutes")(app);
 
 
 //Starts server Listening
