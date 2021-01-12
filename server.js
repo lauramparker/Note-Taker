@@ -7,11 +7,12 @@ var fs = require("fs");
 var app = express();
 
 //Set Up PORT
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 3000;
 
 //Sets up Express to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("public"));
 
 
 
@@ -29,8 +30,8 @@ app.use(express.json());
 
 
 //Routes
-require(".routes/HTMLroutes")(app);
-require(".routes/APIroutes")(app);
+require("./Develop/routes/HTMLroutes")(app);
+require("./Develop/routes/APIroutes")(app);
 
 
 //Starts server Listening
