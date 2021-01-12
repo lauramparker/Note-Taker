@@ -14,6 +14,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
+
+
+
+//reading db and adding contents to notes []
+
+// var currentNotes = fs.readFileSync("./db/db.json", "UTF-8");
+//     if (currentNotes) {
+//         notes = Json.parse(currentNotes)
+//     } else {
+//         notes = [];
+//     }
+
+
+
 //Routes
 require(".routes/HTMLroutes")(app);
 require(".routes/APIroutes")(app);
