@@ -39,10 +39,10 @@ module.exports = function(app) {
 
 
         //Write to the db.json file
-        fs.writeFile(json, JSON.stringify(notesData), function (err) {
+        fs.writeFileSync(json, JSON.stringify(notesData), function (err) {
 
             if (err) {
-                return console.log(err);
+                throw err;
             }
             console.log("New note has been saved!");
 
@@ -69,10 +69,10 @@ module.exports = function(app) {
             return addNote.id !== deletedNoteId} );
 
         //Write to the db.json file
-        fs.writeFile(json, JSON.stringify(deletedData), function (err) {
+        fs.writeFileSync(json, JSON.stringify(deletedData), function (err) {
 
             if (err) {
-                return console.log(err);
+                throw err;
             }
             console.log("Note has been deleted!");
 
