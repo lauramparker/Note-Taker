@@ -3,8 +3,8 @@ const fs = require("fs");
 
 //Global Variable to contain all notes data in backend
 //Normally would use data folder and objects, but this is string data only with no other elements, ie, date, complete, etc
-var notesData = [];
-var deletedData = [];
+//var notesData = [];
+//var deletedData = [];
 
 
 //ROUTING
@@ -12,16 +12,9 @@ var deletedData = [];
 module.exports = function(app) {
     
     //API GET request to read saved notes from db
-    app.get("/api/notes", function (req, res) {
+    app.get("/api/notes", function (_req, res) {
 
-        let notes = fs.readFileSync("../db/db.json", "UTF-8");
-        if (notes) { //how to state if current notes has something...don' tneed if/then?
-            notesData = Json.parse(notes)
-        } else {
-            notesData = [];
-        }
-
-        console.log("Sending Notes Data: " + JSON.stringify(notesData));
+        let notesData = JSON.parse(fs.readFileSync("../db/db.json", "UTF-8"));
 
         res.json(notesData);
     });
@@ -33,25 +26,61 @@ module.exports = function(app) {
     app.post("/api/notes", function(req, res) {
 
         //getting new note from request body to add to notesData
-        notesData.push(req.body);
+        let addNote = req.body;
 
-        //send back newly added note
+        //giving new note an id (for use in deleting later). String keeps id from changing
+        addNote.id = (notesData.length).toString();
+
+        // Read data from 'db.json' file
+        let notesData = JSON.parse(fs.readFileSync("../db/db.json", "UTF-8"));
+
+        //push to the notesData
+        notesData.push(addNote);
+
+
+        //Write to the db.json file
+        fs.writeFile(json, JSON.stringify(notesData), function (err) {
+
+            if (err) {
+                return console.log(err);
+            }
+            console.log("New note has been saved!");
+
+        });
+
+        //returns note list with newly added note
         res.json(notesData);
-
-        console.log("Added note: " + JSON.stringify(addNote) + "to database.");
 
 
     });   
 
+
     //API DELETE
-    // app.delete("/api/notes", function(req, res) {
+    app.delete("/api/notes", function(req, res) {
 
 
-    // }
-    
-    // )
+        // Read data from 'db.json' file
+        let notesData = JSON.parse(fs.readFileSync("../db/db.json", "UTF-8"));
 
-    // });
+        let deletedNoteId = req.params.id;
+
+        // filter data to get notes except the one to delete
+        let deletedData = notesData.filter(notesData => {
+            return addNote.id !== deletedNoteId} );
+
+        //Write to the db.json file
+        fs.writeFile(json, JSON.stringify(deletedData), function (err) {
+
+            if (err) {
+                return console.log(err);
+            }
+            console.log("Note has been deleted!");
+
+        });
+
+        //returns note list without newly deleted note
+        res.json(notesData);
+    });
 
 
 
