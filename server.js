@@ -7,7 +7,7 @@ var fs = require("fs");
 var app = express();
 
 //Set Up PORT
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 8080;
 
 //Sets up Express to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -16,22 +16,10 @@ app.use(express.static("public"));
 
 
 
-
-
-//reading db and adding contents to notes []
-
-// var currentNotes = fs.readFileSync("./db/db.json", "UTF-8");
-//     if (currentNotes) {
-//         notes = Json.parse(currentNotes)
-//     } else {
-//         notes = [];
-//     }
-
-
-
 //Routes
 require("./Develop/routes/HTMLroutes")(app);
 require("./Develop/routes/APIroutes")(app);
+
 
 
 //Starts server Listening
