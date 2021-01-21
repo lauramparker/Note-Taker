@@ -15,7 +15,6 @@ app.use(express.json());
 app.use(express.static("public"));
 
 
-
 //Routes
 require("./Develop/routes/HTMLroutes")(app);
 require("./Develop/routes/APIroutes")(app);

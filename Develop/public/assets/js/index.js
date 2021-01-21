@@ -1,3 +1,5 @@
+//const { response } = require("express");
+
 const $noteTitle = $(".note-title");
 const $noteText = $(".note-textarea");
 const $saveNoteBtn = $(".save-note");
@@ -12,6 +14,9 @@ const getNotes = () => {
   return $.ajax({
     url: "/api/notes",
     method: "GET",
+    success: function (data) {
+      console.log(data);
+  }
   });
 };
 
@@ -21,13 +26,16 @@ const saveNote = (note) => {
     url: "/api/notes",
     data: note,
     method: "POST",
+    success: function (data) {
+      console.log(data);
+  }
   });
 };
 
 // A function for deleting a note from the db
 const deleteNote = (id) => {
   return $.ajax({
-    url: "api/notes/" + id,
+    url: "/api/notes/" + id,
     method: "DELETE",
   });
 };
@@ -55,6 +63,8 @@ const handleNoteSave = function () {
     title: $noteTitle.val(),
     text: $noteText.val(),
   };
+
+  console.log(newNote); //debugging
 
   saveNote(newNote).then(() => {
     getAndRenderNotes();

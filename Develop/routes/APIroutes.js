@@ -1,5 +1,7 @@
 //Dependencies
 const fs = require("fs");
+const express = require("express");
+const app = express();
 
 //Global Variable to contain all notes data in backend
 //Normally would use data folder and objects, but this is string data only with no other elements, ie, date, complete, etc
@@ -12,9 +14,11 @@ const fs = require("fs");
 module.exports = function(app) {
     
     //API GET request to read saved notes from db
-    app.get("/api/notes", function (_req, res) {
+    app.get("/api/notes", function (req, res) {
 
-        let notesData = JSON.parse(fs.readFileSync("../db/db.json", "UTF-8"));
+        let notesData = JSON.parse(fs.readFileSync("./db/db.json", "UTF-8"));
+
+        console.log(notesData); //debugging
 
         res.json(notesData);
     });
@@ -56,7 +60,7 @@ module.exports = function(app) {
 
 
     //API DELETE
-    app.delete("/api/notes", function(req, res) {
+    app.delete("/api/notes:id", function(req, res) {
 
 
         // Read data from 'db.json' file
